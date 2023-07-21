@@ -1,0 +1,81 @@
+--1
+--SELECT Product_2.name, Category.name
+--FROM Product_2 INNER JOIN Category
+--ON Product_2.id_category = Category.id
+--JOIN Delivery
+--ON Delivery.id_product = Product_2.id
+--JOIN Supplier
+--ON Supplier.id = Delivery.id_supplier AND Supplier.name = 'Паньки' OR Supplier.name = 'Какие люди'
+
+--2
+--SELECT Product_2.name, Supplier.name
+--FROM Product_2 INNER JOIN Delivery
+--ON Product_2.id_producer = Delivery.id
+--JOIN Supplier
+--ON Delivery.id_supplier = Supplier.id
+--JOIN Producer
+--ON Product_2.id_producer = Producer.id AND Producer.name NOT LIKE '%a%' AND Producer.name NOT LIKE '%k%' AND Producer.name NOT LIKE '%m%'
+--JOIN Category
+--ON Product_2.id_category = Category.id AND Category.name != 'Крупы'
+
+--3
+--SELECT Product_2.name, Supplier.name, Category.name, Country.name
+--FROM Product_2 INNER JOIN Producer
+--ON Product_2.id_producer = Producer.id
+--JOIN Category
+--ON Product_2.id_category = Category.id
+--JOIN Delivery
+--ON Product_2.id = Delivery.id_product AND Delivery.price < 50 AND Delivery.date_of_delivery > '2023-05-10'
+--JOIN Supplier
+--ON Delivery.id_supplier = Supplier.id
+--JOIN Address
+--ON Producer.id_address = Address.id
+--JOIN City
+--ON Address.id_city = City.id
+--JOIN Region
+--ON City.id_region = Region.id
+--JOIN Country
+--ON Region.id_country = Country.id AND Country.name != 'Ukraine' AND Country.name != 'Moldova' AND Country.name != 'Poland'
+
+
+
+--4 
+--SELECT Product_2.name, Supplier.name, Producer.name
+--FROM Product_2 INNER JOIN Delivery
+--ON Delivery.id_product = Product_2.id AND Delivery.quantity > 100
+--JOIN Supplier
+--ON Delivery.id_supplier = Supplier.id
+--JOIN Producer
+--ON Product_2.id_producer = Producer.id
+--JOIN Category
+--ON Product_2.id_category = Category.id AND Category.name = 'Кондитерские' OR Category.name = 'Без алк.'
+
+--5
+--SELECT Product_2.name AS 'Tovar Name', Supplier.name AS 'Supplier', Category.name AS 'Category', Delivery.date_of_delivery AS 'Date of delivery', Delivery.price * Delivery.quantity AS 'All price'
+--FROM Product_2 INNER JOIN Delivery
+--ON Delivery.id_product = Product_2.id
+--JOIN Supplier 
+--ON Delivery.id_supplier = Supplier.id AND (Supplier.name = 'First_SUPPLIER' OR Supplier.name = 'Second_SUPPLIER' OR Supplier.name = 'Third_SUPPLIER')
+--JOIN Category
+--ON Product_2.id_category = Category.id
+--ORDER BY Product_2.name
+
+--6
+--SELECT Product_2.name AS 'Tovar', Producer.name AS 'Producer', (Country.name + ', ' + City.name + ', ' + Address.street) AS 'Address',
+--Category.name AS 'Category', Sale.date_of_sale AS 'Date', Sale.price * Sale.quantity AS 'All price'
+--FROM Product_2 INNER JOIN Producer 
+--ON Producer.id = Product_2.id_producer
+--JOIN Address 
+--ON Address.id = Producer.id_address
+--JOIN City
+--ON City.id = Address.id_city
+--JOIN Region 
+--ON Region.id = City.id_region
+--JOIN Country 
+--ON Country.id = Region.id_country
+--JOIN Category
+--ON Category.id = Product_2.id_category
+--JOIN Sale  
+--ON Product_2.id = Sale.id_product
+--WHERE Producer.name NOT IN ('First_COMPANY', 'Second_COMPANY')
+--ORDER BY Sale.price DESC
