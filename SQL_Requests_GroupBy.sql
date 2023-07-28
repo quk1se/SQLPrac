@@ -1,0 +1,75 @@
+-- 1
+--SELECT Product_2.name, MIN(Sale.price)
+--FROM Product_2 INNER JOIN Sale ON Sale.id_product = Product_2.id
+--GROUP BY Product_2.name
+
+-- 2
+--SELECT Product_2.name FROM Product_2 INNER JOIN Sale
+--ON Sale.id_product = Product_2.id
+--GROUP BY Product_2.name
+--HAVING AVG(Sale.price) > 50
+
+--3
+--SELECT COUNT(Product_2.name) FROM Product_2 INNER JOIN Category
+--ON Product_2.id_category = Category.id
+--JOIN Sale
+--ON Sale.id_product = Product_2.id
+--WHERE Sale.price > 100
+--GROUP BY Category.name 
+
+-- 4
+--SELECT Category.name, Product_2.name, Sale.price * Sale.quantity as Sale_price
+--FROM Product_2 INNER JOIN Category
+--ON Product_2.id_category = Category.id 
+--JOIN Sale ON Product_2.id = Sale.id_product
+--WHERE Category.name IN ('Milks', 'Alcohol')
+--GROUP BY Product_2.name
+
+--5
+--SELECT Supplier.name, MIN(Delivery.price)
+--FROM Product_2
+--JOIN Delivery
+--ON Product_2.id = Delivery.id_product
+--JOIN Supplier
+--ON Supplier.id = Delivery.id_supplier
+--WHERE Delivery.date_of_delivery BETWEEN DATEADD(MONTH, -1, GETDATE()) AND GETDATE()
+--GROUP BY Supplier.name
+--ORDER BY 2
+
+-- 6
+--SELECT Producer.name AS 'производитель', COUNT(Product_2.name) AS 'количество товаров', (Country.name + ', ' + Region.name + ', ' + City.name + ', ' + Address.street) AS 'полный адрес'
+--FROM Product_2 JOIN Producer
+--ON Producer.id = Product_2.id_producer
+--JOIN Address
+--ON Address.id = Producer.id_address
+--JOIN City
+--ON City.id = Address.id_city
+--JOIN Region 
+--ON Region.id = City.id_region
+--JOIN Country 
+--ON Country.id = Region.id_country
+--JOIN Sale
+--ON Product_2.id = Sale.id_product
+--GROUP BY Producer.name, (Country.name + ', ' + Region.name + ', ' + City.name + ', ' + Address.street)
+--HAVING SUM(Sale.price) BETWEEN 100 AND 200
+
+--7
+--SELECT TOP 1 Category.name
+--FROM Product_2
+--JOIN Category 
+--ON Category.id = Product_2.id_category
+--GROUP BY Category.name
+--ORDER BY COUNT(Product_2.name)
+
+--8
+--SELECT Category.name, COUNT(Product_2.name)
+--FROM Product_2
+--JOIN Category 
+--ON Category.id = Product_2.id_category
+--JOIN Delivery 
+--ON Product_2.id = Delivery.id_product
+--JOIN Supplier 
+--ON Supplier.id = Delivery.id_supplier
+--WHERE Supplier.name IN ('NovaPoshta', 'UkrPoshta', 'SilpoPerevoz')
+--GROUP BY Category.name
+--HAVING SUM(Delivery.price) > 400
