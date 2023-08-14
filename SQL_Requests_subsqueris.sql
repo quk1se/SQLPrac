@@ -1,0 +1,53 @@
+--1
+--SELECT name
+--FROM Product_2
+--WHERE id IN (SELECT id
+--			 FROM Sale
+--			 WHERE quantity = (SELECT MAX(quantity) 
+--							   FROM Sale))
+
+--3
+--SELECT name
+--FROM Supplier
+--WHERE id IN (SELECT id_supplier
+--			 FROM Delivery
+--			 WHERE id_product IN (SELECT id
+--								 FROM Product_2
+--								 WHERE id_category IN (SELECT id
+--													  FROM Category
+--													  WHERE name NOT LIKE 'Milks')))
+
+--4
+--SELECT name
+--FROM Producer
+--WHERE id_address IN (SELECT id
+--					 FROM Address
+--					 WHERE id_city IN (SELECT id
+--									   FROM City
+--									   WHERE id_region IN (SELECT id
+--														   FROM Region
+--														   WHERE id_country IN (SELECT id
+--																				FROM Country
+--																				WHERE id_address IN (SELECT id	
+--																									 FROM Producer
+--																									 WHERE name LIKE 'Syvorov')))))
+
+--5
+--SELECT name
+--FROM Producer
+--WHERE id IN (SELECT id_producer
+--			 FROM Product_2
+--			 WHERE quantity > (SELECT MAX(quantity)
+--							   FROM Product_2
+--							   WHERE id_producer IN (SELECT id
+--												     FROM Producer
+--													 WHERE name LIKE 'Silpo')))
+
+--6
+--SELECT SUM(sale.quantity) as 'quantity', sale.date_of_sale
+--FROM Sale AS sale
+--WHERE sale.date_of_sale BETWEEN '01-01-2023' AND GETDATE()
+--GROUP BY sale.date_of_sale
+--ORDER BY 1
+
+--7 -
